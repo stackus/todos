@@ -1,0 +1,22 @@
+package partials
+
+templ AddTodoForm() {
+	<form
+		method="POST"
+		action="/todos"
+		hx-post="/todos"
+		hx-target="#no-todos"
+		hx-swap="beforebegin"
+		class="inline"
+	>
+		<label class="flex items-center">
+			<span class="text-lg font-bold">Add Todo</span>
+			<input
+				type="text"
+				name="description"
+				class="ml-2 grow"
+				data-script="on keyup if the event's key is 'Enter' set my value to '' trigger keyup"
+			/>
+		</label>
+	</form>
+}

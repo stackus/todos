@@ -1,0 +1,37 @@
+package partials
+
+import (
+	"github.com/stackus/todos/internal/domain"
+)
+
+templ EditTodoForm(todo *domain.Todo) {
+	<div class="block py-2 border-b-4 border-dotted border-red-900 draggable">
+		<button disabled="disabled" class="mr-2">❌</button>
+		<button disabled="disabled" class="mr-2">📝</button>
+		<input type="hidden" name="id" value={ todo.ID.String() } />
+		<form
+			method="POST"
+			action={ "/todos/"+todo.ID.String()+"/edit" }
+			hx-target="closest div"
+			hx-swap="outerHTML"
+			hx-patch={ "/todos/"+todo.ID.String() }
+			class="inline"
+		>
+			<input
+				type="hidden"
+				name="completed"
+				if todo.Completed {
+					value="true"
+				} else {
+					value="false"
+				}
+			/>
+			<input
+				type="text"
+				name="description"
+				value={ todo.Description }
+			/>
+			<input type="submit" class="hidden" />
+		</form>
+	</div>
+}

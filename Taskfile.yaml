@@ -1,0 +1,31 @@
+---
+# https://taskfile.dev
+version: '3'
+
+tasks:
+  init:
+    desc: Install some important commands and tools
+    cmds:
+      - npm install
+      - go install github.com/a-h/templ/cmd/templ@latest
+      - go install github.com/vektra/mockery/v2@latest
+      - go mod tidy
+  assets:
+    desc: Build the assets
+    cmds:
+      - tailwindcss -i ./internal/assets/tailwind.css -o ./internal/assets/dist/styles.css
+  generate:
+    desc: Generate stuff and things
+    cmds:
+      - go generate ./...
+  run:
+    desc: Run the application
+    deps:
+      - assets
+      - generate
+    cmds:
+      - go run ./cmd/server/...
+  test:
+    desc: Run the tests
+    cmds:
+      - go test ./...

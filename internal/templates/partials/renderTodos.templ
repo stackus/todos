@@ -1,0 +1,22 @@
+package partials
+
+import (
+	"github.com/stackus/todos/internal/domain"
+)
+
+templ RenderTodos(todos []*domain.Todo) {
+	<form
+		hx-post="/todos/sort"
+		hx-trigger="end"
+		class="block p-0 mb-2 text-lg"
+	>
+		<div id="todos" class=" sortable">
+			for _, todo := range todos {
+				@RenderTodo(todo)
+			}
+			<div id="no-todos" class="hidden first:block first:pb-2 first:pt-3">
+				<p>Congrats, you have no todos! Or... do you? 😰</p>
+			</div>
+		</div>
+	</form>
+}

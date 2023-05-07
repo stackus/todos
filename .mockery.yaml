@@ -1,0 +1,6 @@
+---
+# https://vektra.github.io/mockery/configuration/
+inpackage: True
+case: underscore
+with-expecter: True
+log-level: WARN

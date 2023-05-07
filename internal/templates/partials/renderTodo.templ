@@ -1,0 +1,78 @@
+package partials
+
+import (
+	"github.com/stackus/todos/internal/domain"
+)
+
+templ RenderTodo(todo *domain.Todo) {
+	<div class="block py-2 border-b-4 border-dotted border-red-900 draggable">
+		<form
+			method="POST"
+			action={ "/todos/"+todo.ID.String()+"/delete" }
+			class="inline"
+		>
+			<button
+				type="submit"
+				hx-target="closest div"
+				hx-swap="outerHTML"
+				hx-delete={ "/todos/"+todo.ID.String() }
+				class="focus:outline focus:outline-red-500 focus:outline-4 mr-2"
+			>
+				❌
+			</button>
+		</form>
+		<form
+			method="GET"
+			action={ "/todos/"+todo.ID.String() }
+			class="inline"
+    >
+			<button
+				type="submit"
+				hx-target="closest div"
+				hx-swap="outerHTML"
+				hx-get={ "/todos/"+todo.ID.String() }
+				class="focus:outline focus:outline-red-500 focus:outline-4 mr-2"
+			>
+				📝
+			</button>
+		</form>
+		<form
+			method="POST"
+			action={ "/todos/"+todo.ID.String()+"/edit" }
+			hx-target="closest div"
+			hx-swap="outerHTML"
+			class={ "inline", templ.KV("line-through", todo.Completed) }
+		>
+			<input
+				type="hidden"
+				name="completed"
+				if !todo.Completed {
+					value="true"
+				} else {
+					value="false"
+				}
+			/>
+			<input
+				type="hidden"
+				name="description"
+				value={ todo.Description }
+			/>
+			<noscript>
+				<input
+					type="submit"
+					if todo.Completed {
+						value="Set as Not Completed"
+					} else {
+						value="Set as Completed"
+					}
+					class="mr-2"
+				/>
+			</noscript>
+			<span hx-patch={ "/todos/"+todo.ID.String() }>
+				{ todo.Description }
+			</span>
+		</form>
+		<input type="hidden" name="id" value={ todo.ID.String() } />
+
+	</div>
+}

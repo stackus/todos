@@ -1,0 +1,27 @@
+package shared
+
+templ Page(title string) {
+	<!DOCTYPE html>
+	<html lang="en" class="h-full">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>{ title }</title>
+		<link rel="icon" type="image/svg+xml" href="/dist/favicon.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<meta name="robots" content="index, follow"/>
+		<meta name="revisit-after" content="7 days"/>
+		<meta name="language" content="English"/>
+		<script src="https://unpkg.com/htmx.org@1.9.2" integrity="sha384-L6OqL9pRWyyFU3+/bjdSri+iIphTN/bvYyM37tICVyOJkWZLpP2vGn6VUEXgzg6h" crossorigin="anonymous"></script>
+		<script src="https://unpkg.com/hyperscript.org@0.9.8"></script>
+		<script src="https://unpkg.com/sortablejs@1.15.0"></script>
+		<script src="/dist/app.js"></script>
+		<link rel="stylesheet" href="/dist/styles.css"/>
+	</head>
+	<body class="h-full bg-yellow-50 font-mono">
+		<section class="max-w-lg mx-auto my-2">
+			<h1 class="text-8xl font-black text-center m-0 pb-2">Todos</h1>
+			{ children... }
+		</section>
+	</body>
+	</html>
+}

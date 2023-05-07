@@ -1,0 +1,21 @@
+package partials
+
+templ Search(term string) {
+	<form method="GET" action="/todos" class="inline [&:has(+ul:empty)]:hidden">
+		<label class="flex items-center">
+			<span class="text-lg font-bold">Search</span>
+			<input
+				id="search"
+				name="search"
+				value={ term }
+				type="text"
+				placeholder="Begin typing to search..."
+				hx-get="/todos"
+				hx-target="#todos"
+				hx-trigger="keyup changed, search"
+				hx-replace="innerHTML"
+				class="ml-2 grow"
+			/>
+		</label>
+	</form>
+}
